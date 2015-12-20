@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <title>JavaScript HW3</title>
+
+    <style type ="text/css">
+        h1{
+            font-family: sans-serif;
+            color: lightslategray;
+            font-size:40px;
+
+        }
+        p{
+            font-family: sans-serif;
+            color: lightslategray;
+            font-size:12px;
+        }
+        #calc{
+            width:250px;
+            height:210px;
+            background: linear-gradient(#9dd2ea, #8bceec);
+            border-radius: 5px;
+        }
+
+        #buttons{
+            background-color: #Be90D4;
+            height:140px;
+            font-family:sans-serif;
+        }
+        .digit{
+            background-color: white;
+            width:40px;
+            margin-left: 15px;
+            margin-top: 5px;
+            box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+        .operator{
+            background-color: lightslategray;
+            width:40px;
+            margin-left: 15px;
+            margin-top:5px;
+            box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+        #display{
+            width:150px;
+            margin-left:15px;
+            margin-top:15px;
+        }
+        a{
+            float: right;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+
+        var someString="";
+        var num = 0;
+        var num1= 0;
+        var num2= 0;
+        var answer=0;
+        var operations;
+
+
+        function display(num) {
+            var node = document.getElementById("display");
+            node.value=num;
+        }
+
+        //function to coerce strings to numbers
+        function coerce(aString){
+            return num= parseFloat(aString);
+        }
+
+        function buttonPressed(button) {
+            //read in number as string and display
+            someString= someString.concat(button);
+            display(someString);
+            }
+
+
+        function opPressed(op){
+            operations=op;
+            num1=coerce(someString);
+
+            //resets the string to empty for the next number
+            someString="";
+        }
+
+
+        function performOp(operations){
+            num2=coerce(someString);
+
+            switch (operations) {
+
+                case "multiply":
+                    answer= num1*num2;
+                    break;
+
+                case "plus":
+                    answer= num1+num2;
+                    break;
+
+                case "minus":
+                    answer= num1-num2;
+                    break;
+
+                case "divide":
+                    answer= num1/num2;
+                    break;
+            }
+
+            return answer;
+
+        }
+
+        function equals(){
+            //perform operation and store as answer
+            var displayThis= performOp(operations);
+            display(displayThis);
+            someString=displayThis;
+
+        }
+
+        function blank(){
+            someString="";
+            display(someString);
+            num1=0; num2=0;
+        }
+
+
+    </script>
+
+</head>
+
+
+<body>
+    <h1>it works!!!!!</h1>
+    <p> note: press = between multiple operations</p>
+
+    <div id="calc">
+        <form action="" method="get">
+            <p>
+                <input class="digit" type="text" id="display" readonly/>
+            <input class="operator" type="button" value="C" onclick="blank()" id="operator"/>
+            </p>
+        </form>
+
+        <form action="" method="get">
+        <div id="buttons">
+        <table>
+            <tr>
+                <td><input class="digit" type="button" value ="7" onclick="buttonPressed('7')"/></td>
+                <td><input class="digit" type="button" value ="8" onclick="buttonPressed('8')"/></td>
+                <td><input class="digit" type="button" value ="9" onclick="buttonPressed('9')"/></td>
+                <td><input class="operator" type="button" value ="/" onclick="opPressed('divide')"/></td>
+
+            </tr>
+            <tr>
+                <td><input class="digit" type="button" value ="4" onclick="buttonPressed('4')"/></td>
+                <td><input class="digit" type="button" value ="5" onclick="buttonPressed('5')"/></td>
+                <td><input class="digit" type="button" value ="6" onclick="buttonPressed('6')"/></td>
+                <td><input class="operator" type="button" value ="*" onclick="opPressed('multiply')"/></td>
+            </tr>
+            <tr>
+                <td><input class="digit" type="button" value ="1" onclick="buttonPressed('1')"/></td>
+                <td><input class="digit" type="button" value ="2" onclick="buttonPressed('2')"/></td>
+                <td><input class="digit" type="button" value ="3" onclick="buttonPressed('3')"/></td>
+                <td><input class="operator" type="button" value ="-" onclick="opPressed('minus')"/></td>
+            </tr>
+            <tr>
+                <td><input class="digit" type="button" value ="." onclick="buttonPressed('.')"/></td>
+                <td><input class="digit" type="button" value ="0" onclick="buttonPressed('0')"/></td>
+                <td><input class="operator" type="button" value ="=" onclick="equals()"/></td>
+                <td><input class="operator" type="button" value ="+" onclick="opPressed('plus')"/></td>
+            </tr>
+        </table>
+        </div>
+        </form>
+
+    </div>
+    <div>
+    <a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a>
+    </div>
+</body>
+</html>
